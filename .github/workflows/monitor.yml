@@ -1,17 +1,20 @@
-name: DOT Whale Monitor
+name: DOT Whale Monitor (scanner)
 
 on:
   schedule:
-    # Запуск каждые 5 минут
     - cron: '*/5 * * * *'
-  workflow_dispatch:  # Ручной запуск для теста
+  workflow_dispatch:
 
 jobs:
   monitor:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -23,16 +26,14 @@ jobs:
 
       - name: Run monitor
         env:
-          SMTP_SENDER: ${{ secrets.SMTP_SENDER }}
-          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-          ALERT_EMAIL: ${{ secrets.ALERT_EMAIL }}
           POLKADOT_RPC_URL: ${{ secrets.POLKADOT_RPC_URL }}
         run: python monitor.py
 
-      - name: Commit state file
+      - name: Commit state files
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add last_block.json
-          git diff --quiet && git diff --staged --quiet || git commit -m "Update last_block.json"
+          git add last_block.json pending_transfers.json
+          git diff --quiet && git diff --staged --quiet || git commit -m "Update scanner state"
+          git pull --rebase origin main || true
           git push
