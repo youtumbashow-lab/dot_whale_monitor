@@ -13,7 +13,7 @@ POLKADOT_RPC_URL = os.getenv(
     "wss://rpc.polkadot.io"  # Официальный публичный RPC
 )
 
-# Альтернативные публичные эндпоинты:
+# Альтернативные публичные эндпоинты (раскомментируйте нужный, если основной не работает):
 # POLKADOT_RPC_URL = "wss://polkadot.api.onfinality.io/public-ws"
 # POLKADOT_RPC_URL = "wss://polkadot-rpc.dwellir.com"
 # POLKADOT_RPC_URL = "wss://1rpc.io/dot"
@@ -33,9 +33,9 @@ EMAIL_CONFIG = {
     # Настройка: https://myaccount.google.com/apppasswords
     "smtp_host": os.getenv("SMTP_HOST", "smtp.gmail.com"),
     "smtp_port": int(os.getenv("SMTP_PORT", "587")),
-    "sender": os.getenv("SMTP_SENDER", "youtumbashow@gmail.com"),
+    "sender": os.getenv("SMTP_SENDER", "your_email@gmail.com"),
     "password": os.getenv("SMTP_PASSWORD", "your_app_password"),
-    "recipient": os.getenv("ALERT_EMAIL", "leoleokor@gmail.com"),
+    "recipient": os.getenv("ALERT_EMAIL", "recipient@example.com"),
 }
 
 # ==================== Состояние ====================
