@@ -35,6 +35,7 @@ EMAIL_CONFIG = {
 # ==================== Файлы состояния ====================
 STATE_FILE = "last_block.json"
 PENDING_FILE = "pending_transfers.json"
+HISTORY_FILE = "history.json"
 
 # ==================== Логирование ====================
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")
